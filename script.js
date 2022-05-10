@@ -31,7 +31,7 @@ class Particle {
         this.size = 3;
         this.baseX = this.x;
         this.baseY = this.y;
-        this.density = (Math.random() * 8) + 1;
+        this.density = (Math.random() * 2) + 1;
         this.distance;
     }
 
@@ -46,8 +46,8 @@ class Particle {
             ctx.stroke();
             ctx.closePath();
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x-3, this.y-3, this.size/2.5, 0, Math.PI * 2); 
+            ctx.arc(this.x+7, this.y-1, this.size/3.5, 0, Math.PI * 2); // 2nd smaller reflection // ln 49 and 50 controll bigger and smaller reflections on the bubble.
         }
         else if (this.distance <= mouse.radius){
             this.size = 10;
@@ -55,6 +55,7 @@ class Particle {
             ctx.stroke();
             ctx.closePath();
             ctx.beginPath();
+            ctx.arc(this.x - 2, this.y - 2, this.size/3, 0, Math.PI * 2);
 
         } else {
             this.size = 8;
@@ -62,6 +63,7 @@ class Particle {
             ctx.stroke();
             ctx.closePath();
             ctx.beginPath();
+            ctx.arc(this.x - 1, this.y - 1, this.size/3, 0, Math.PI * 2);
         }
 
         ctx.closePath();
