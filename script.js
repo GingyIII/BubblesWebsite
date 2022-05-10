@@ -45,18 +45,21 @@ class Particle {
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.stroke();
             ctx.closePath();
+            ctx.beginPath();
         }
         else if (this.distance <= mouse.radius){
             this.size = 10;
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.stroke();
             ctx.closePath();
+            ctx.beginPath();
 
         } else {
             this.size = 8;
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.stroke();
             ctx.closePath();
+            ctx.beginPath();
         }
 
         ctx.closePath();
