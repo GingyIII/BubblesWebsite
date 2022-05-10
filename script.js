@@ -46,6 +46,8 @@ class Particle {
             ctx.stroke();
             ctx.closePath();
             ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         }
         else if (this.distance <= mouse.radius){
             this.size = 10;
