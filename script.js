@@ -5,6 +5,7 @@ canvas.height = window.innerHeight;
 let particleArray = [];
 let adX = 5;
 let adY = 5;
+ctx.lineWidth = 3;
 
 // handle mouse
 const mouse = {
@@ -30,13 +31,27 @@ class Particle {
         this.size = 3;
         this.baseX = this.x;
         this.baseY = this.y;
-        this.density = (Math.random() * 40) + 5;
+        this.density = (Math.random() * 8) + 1;
+        this.distance;
     }
 
     draw(){
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.strokeStyle = 'rgba(34, 147, 214, 1)';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+        if (this.distance < mouse.radius - 5){
+            this.size = 10;
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        }
+        else if (this.distance <= mouse.radius){
+            this.size = 15;
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        } else {
+            this.size = 20;
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        }
+
         ctx.closePath();
         ctx.fill();
     }
@@ -45,8 +60,9 @@ class Particle {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
-        let fDX = dx / distance;
-        let fDY = dy / distance;
+        this.distance = distance;
+        let fDX = dx / distance; // fDX = force distance x
+        let fDY = dy / distance; // fDY = force distance y
         let maxDist = mouse.radius;
         let force = (maxDist - distance) / maxDist;
         let dirX = fDX * force * this.density;
@@ -95,12 +111,13 @@ function animate(){
         particleArray[i].draw();
         particleArray[i].update();
     }
-    connect();
+    //connect();
     requestAnimationFrame(animate);
 }
 
 animate();
 
+// dont need this function anymore for the bubbles effect.
 function connect(){
     let opacityValue = 1;
     for (let a = 0; a < particleArray.length; a++){
